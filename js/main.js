@@ -36,7 +36,8 @@ function resultadoFinal() {
 }
 
 function final () {
-    document.write(` ${imagenes()} Su compra es: ${productos[Number(items)]}, Su total es de: ${resultadoFinal()} `)
+    imagenes();
+    document.write(` Su compra es: ${productos[Number(items)]}, Su total es de: ${resultadoFinal()} `)
 }
 final();
 
