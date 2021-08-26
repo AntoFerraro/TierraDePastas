@@ -46,11 +46,6 @@ function resultadoFinal() {
     }
 }
 
-function parsearProd () {
-    const productoJSON = JSON.stringify(productos[items]);
-    console.log(productoJSON)
-}
-parsearProd()
 
 function final () {    
     document.write(`\n\n <div class="laCompra"> 
