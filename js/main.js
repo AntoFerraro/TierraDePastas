@@ -46,7 +46,6 @@ function resultadoFinal() {
     }
 }
 
-
 function final () {    
     document.write(`\n\n <div class="laCompra"> 
     <h1> Gracias por comprar en Tierra de Pastas </h1> \n\n       
@@ -80,7 +79,7 @@ document.write(acumuladores);
 function agregarAlCarrito(pasta){    
     carrito.push(pasta);
     console.log(carrito);
-
+    
 }
 
 

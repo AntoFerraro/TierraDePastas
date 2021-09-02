@@ -1,0 +1,21 @@
+#buttonsProd{
+    display: flex;
+    justify-content: space-between;
+}
+
+.inputNumber{
+    width:40px;
+    border-radius:5px;
+}
+
+.carritoProd{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.imgCarrito{
+    height: 23%;
+    width: 23%;
+}
