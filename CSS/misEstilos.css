@@ -1,7 +1,3 @@
-#buttonsProd{
-    display: flex;
-    justify-content: space-between;
-}
 
 .inputNumber{
     width:40px;
@@ -10,12 +6,13 @@
 
 .carritoProd{
     display: flex;
-    justify-content: space-around;
+    justify-content: space-evenly;
     align-items: center;
-    margin-bottom: 10px;
+    margin-bottom: 15px;
+    border: 1px solid black;
 }
 
 .imgCarrito{
-    height: 23%;
-    width: 23%;
+    height: 20%;
+    width: 20%;
 }

@@ -1,28 +1,13 @@
-class Product{
-    constructor(pasta, precio, stock, img){
-        this.pasta = pasta || undefined;
-        this.precio = precio || undefined;
-        this.stock = stock || undefined;
-        this.img = img;
-    }
-   
-}
-
-const corazon = new Product(`Ravioles con forma de corazon rellenos con Capresse`, 450, 250, "./imagenes/0.jpeg");
-const cappellacci = new Product(`Cappelacci rellenos de hongos`, 500, 500, "./imagenes/1.jpeg");
-const caramelos = new Product(`Caramelos rellenos de remolacha`, 450, 90,"./imagenes/2.jpeg");
-const pansotti = new Product(`Pansotti rellenos de calabaza`, 500, 120,"./imagenes/3.jpeg");
-const ravioles = new Product(`Ravioles rellenos de queso de cabra y zanahora caramelizada`, 550, 6,"./imagenes/4.jpeg");
-const sobrecitos = new Product(`Sobrecitos rellenos de ricota y verdura`, 500, 50,"./imagenes/5.jpeg");
-const fideos = new Product(`Fideos con forma de flor`, 400, 34,"./imagenes/6.jpeg");
-
-const productos = [
-    corazon, cappellacci, caramelos, pansotti, ravioles, sobrecitos, fideos
-];
+let carrito = []
+if(localStorage.carrito != null) {
+    carrito = JSON.parse(localStorage.carrito);
+    document.getElementById("theCart").innerHTML = carrito.length; 
+} 
 
 //CREACION DE LAS CARDS
-const carrito = []
+
 let acumuladores = ``;
+let cantCero = 0
 productos.forEach((productos) => {
     acumuladores += `<div class="col mb-5">
         <div class="card h-100">            
@@ -35,8 +20,7 @@ productos.forEach((productos) => {
             </div>
             <!-- Product actions-->
             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent" id="buttonsProd">
-                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#" onclick="agregarAlCarrito('${productos.pasta}')">Agregar al carrito</a></div>
-                <div class="qtyProd"> <input class="inputNumber" type= "number" value="1"> </div>
+                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#" onclick="agregarAlCarrito('${productos.pasta}')">Agregar al carrito</a></div>            
             </div>
         </div>
     </div>`        
@@ -44,30 +28,52 @@ productos.forEach((productos) => {
 
 document.getElementById("losProductos").innerHTML = acumuladores;
 
+
 //DEFINIR QUE OBJETO SELECCIONARON
 function agregarAlCarrito(pasta) {
-    const encontrarProducto = productos.find(productos => productos.pasta === pasta)
+    const encontrarProducto = productos.find(productos => productos.pasta === pasta)    
     if(encontrarProducto != undefined){
-        carrito.push(encontrarProducto);         
+        carrito.push(encontrarProducto);                 
     } else{
         alert("Ocurrio un error");
     }
     document.getElementById("theCart").innerHTML = carrito.length; 
+
+    localStorage.carrito = JSON.stringify(carrito);
     console.log(carrito);
 }
 
 //AGREGARLO AL CARRITO
-function mostrarProd(){ 
+function mostrarProd(){  //LLAMADO EN UN ONCLICK EN LINEA 38 DEL HTML
 let mostrar = ``;
 carrito.forEach((element) => {
-    mostrar += `<div class="carritoProd">
-    <img class="imgCarrito" src="${element.img}"/>
-    <p>${element.pasta}</p>
-    <p>$ ${element.precio}</p>
-    </div> `
+    mostrar += `<div class="carritoProd">    
+    <img class="imgCarrito" src="${element.img}">
+    <p> ${element.pasta}</p>
+    <input class="inputNumber" type="number" value="1" >
+    <p>$ ${element.precio}</p>    
+ </div>`
 })
+
 document.getElementById("carritoModal").innerHTML = mostrar;
+
+const buttonComprar = $("#buttonBuy")   //JQUERY
+buttonComprar.on('click', () => {
+    alert("gracias por su compra")
+    carrito = [];
+    $("#carritoModal").html(carrito) 
+    $("#theCart").html(carrito.length);});
 }
+
+//VACIAR EL CARRITO
+document.getElementById("boton-vaciar").addEventListener('click', vaciarCarrito)
+function vaciarCarrito(evento){     
+    localStorage.clear();
+    carrito = [];
+    document.getElementById("carritoModal").innerHTML = carrito    
+    document.getElementById("theCart").innerHTML = carrito.length;
+}
+
 
 
 
