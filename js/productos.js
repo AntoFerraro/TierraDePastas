@@ -4,7 +4,9 @@ class Product{
         this.precio = precio || undefined;
         this.stock = stock || undefined;
         this.img = img;
+       
     }   
+
 }
 
 const corazon = new Product(`Ravioles con forma de corazon rellenos con Capresse`, 450, 250, "./imagenes/0.jpeg");
@@ -18,3 +20,4 @@ const fideos = new Product(`Fideos con forma de flor`, 400, 34,"./imagenes/6.jpe
 const productos = [
     corazon, cappellacci, caramelos, pansotti, ravioles, sobrecitos, fideos
 ];
+
