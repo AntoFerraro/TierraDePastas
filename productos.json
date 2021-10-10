@@ -1,58 +1,65 @@
 [
     {
-        "id": "corazon",
+        "id": "1",
         "pasta": "Ravioles con forma de corazon rellenos con Capresse",
         "precio": 450,
         "stock": 250,
         "img": "./imagenes/0.jpeg"
+        
     },
 
      {
-        "id": "cappelacci",
+        "id": "2",
         "pasta": "Cappelacci rellenos de hongos",
         "precio": 500,
         "stock": 500,
         "img": "./imagenes/1.jpeg"
+        
     },
 
     {
-        "id": "caramelos",
+        "id": "3",
         "pasta": "Caramelos rellenos de remolacha",
         "precio": 450,
         "stock": 90,
         "img": "./imagenes/2.jpeg"
+        
     },
 
     {
-        "id": "pansotti",
+        "id": "4",
         "pasta": "Pansotti rellenos de calabaza",
         "precio": 500,
         "stock": 120,
         "img": "./imagenes/3.jpeg"
+        
     },
 
     {
-        "id": "ravioles",
+        "id": "5",
         "pasta": "Ravioles rellenos de queso de cabra y zanahora caramelizada",
         "precio": 500,
         "stock": 6,
         "img": "./imagenes/4.jpeg"
+        
     },
 
     {
-        "id": "sobrecitos",
+        "id": "6",
         "pasta": "Sobrecitos rellenos de ricota y verdura",
         "precio": 500,
         "stock": 50,
         "img": "./imagenes/5.jpeg"
+        
     },
 
     {
-        "id": "fideos",
+        "id": "7",
         "pasta": "Fideos con forma de flor",
         "precio": 400,
         "stock": 34,
         "img": "./imagenes/6.jpeg"
+        
     }
 
 ]

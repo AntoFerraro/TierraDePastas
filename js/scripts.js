@@ -1,4 +1,5 @@
 let carrito = []
+let productos2 = []
 let porciones = []
 if(localStorage.carrito != null) {
     carrito = JSON.parse(localStorage.carrito);
@@ -12,7 +13,9 @@ if(localStorage.porciones != null) {
 
 fetch('./productos.json')
   .then(response => response.json())
-  .then(data => theCards(data));
+  .then(data => {
+    productos2 = data  
+   return theCards(productos2)});
 
 
 function theCards(productos) {
@@ -29,8 +32,8 @@ productos.forEach((productos) => {
             </div>
             <!-- Product actions-->
             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent" id="buttonsProd">
-                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#" onclick="agregarAlCarrito('${productos.pasta}')">Agregar al carrito</a></div>            
-                <input class="inputNumber" productID="${productos.pasta}"  type="number" value="1" >
+                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#" onclick="agregarAlCarrito('${productos.id}')">Agregar al carrito</a></div>            
+                <input class="inputNumber" productID="${productos.id}"  type="number" value="1" >
             </div>
         </div>
     </div>`        
@@ -41,10 +44,9 @@ let cantidadElegida = 0
 
 
 
-
 //DEFINIR QUE OBJETO SELECCIONARON
 function agregarAlCarrito(pasta) {    
-    const encontrarProducto = productos.find(productos => productos.pasta === pasta)    
+    const encontrarProducto = productos2.find(productos => productos.id === pasta)    
 
     if(encontrarProducto != undefined){        
         let theInput = document.getElementsByClassName("inputNumber")
@@ -55,7 +57,7 @@ function agregarAlCarrito(pasta) {
             }
         }        
         carrito.push(encontrarProducto); 
-        porciones.push(cantidadElegida) 
+        porciones.push({porciones: cantidadElegida, id: pasta}) 
 
     } else{
         alert("Ocurrio un error");
@@ -69,10 +71,14 @@ function agregarAlCarrito(pasta) {
     console.log(porciones)
 }
 
-function recorrerPorciones(){ // Permite tener las porciones para sumar
-    for(const i = 0; i < porciones.length; i++) {
-        return Number(porciones[i])
-    }
+function recorrerPorciones(id){ // Permite tener las porciones para sumar
+    let mapeo= porciones.map((por) => {
+       if(por.id === id){
+        return por.porciones
+       } 
+    })
+    console.log(mapeo)
+    return mapeo
 }
 
 //AGREGARLO AL CARRITO
@@ -82,7 +88,7 @@ carrito.forEach((element) => {
     mostrar += `<div class="carritoProd">    
     <img class="imgCarrito" src="${element.img}">
     <p> ${element.pasta}</p>       
-    <p class="precios">$ ${(element.precio) * recorrerPorciones()}</p> 
+    <p class="precios">$ ${(element.precio) * recorrerPorciones(element.id)}</p> 
     <button onclick="eliminarProducto('${element.pasta}')" >X</button>   
  </div>` 
 })

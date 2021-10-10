@@ -4,7 +4,7 @@ class Product{
         this.precio = precio || undefined;
         this.stock = stock || undefined;
         this.img = img;
-       
+        
     }   
 
 }
