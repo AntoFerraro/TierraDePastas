@@ -41,8 +41,7 @@ productos.forEach((productos) => {
 })}
 
 let cantidadElegida = 0 
-
-
+let theInput = document.getElementsByClassName("inputNumber")
 
 //DEFINIR QUE OBJETO SELECCIONARON
 function agregarAlCarrito(pasta) {    
@@ -52,8 +51,8 @@ function agregarAlCarrito(pasta) {
         let theInput = document.getElementsByClassName("inputNumber")
         
         for (const input of theInput){
-            if (input.getAttribute('productID') == encontrarProducto.pasta) {
-                cantidadElegida = input.value;                              
+            if (input.getAttribute('productID') == encontrarProducto.id) {
+                cantidadElegida = input.value;                                              
             }
         }        
         carrito.push(encontrarProducto); 
@@ -68,45 +67,67 @@ function agregarAlCarrito(pasta) {
     localStorage.carrito = JSON.stringify(carrito);
     localStorage.porciones = JSON.stringify(porciones); 
     console.log(carrito);
-    console.log(porciones)
+    console.log(porciones)    
 }
 
 function recorrerPorciones(id){ // Permite tener las porciones para sumar
-    let mapeo= porciones.map((por) => {
-       if(por.id === id){
-        return por.porciones
-       } 
+    let lasPorciones ;
+    porciones.forEach((por) => {        
+        if(por.id === id){
+            lasPorciones = por.porciones
+        }
     })
-    console.log(mapeo)
-    return mapeo
+    return lasPorciones;
 }
 
+
+let laSuma = 0
 //AGREGARLO AL CARRITO
-function mostrarProd(){  //LLAMADO EN UN ONCLICK EN LINEA 38 DEL HTML
-let mostrar = ``;
-carrito.forEach((element) => {    
-    mostrar += `<div class="carritoProd">    
+function mostrarProd(){  //LLAMADO EN UN ONCLICK EN LINEA 38 DEL HTML    
+    let mostrar = ``;
+    let calculoPrecioXpasta;
+    laSuma = 0
+    carrito.forEach((element) => {    
+        calculoPrecioXpasta = element.precio * recorrerPorciones(element.id)
+        laSuma = laSuma + calculoPrecioXpasta        
+        mostrar += `<div class="carritoProd">    
     <img class="imgCarrito" src="${element.img}">
     <p> ${element.pasta}</p>       
-    <p class="precios">$ ${(element.precio) * recorrerPorciones(element.id)}</p> 
-    <button onclick="eliminarProducto('${element.pasta}')" >X</button>   
+    <p class="precios">$ ${calculoPrecioXpasta}</p>     
+    <button onclick="eliminarProducto(${element.id})" >X</button>   
  </div>` 
 })
+
+document.getElementById("total").innerHTML = laSuma
 
 
 document.getElementById("carritoModal").innerHTML = mostrar;
 
 const buttonComprar = $("#buttonBuy")   //JQUERY
-buttonComprar.on('click', () => {
-    alert("gracias por su compra")
+buttonComprar.on('click', () => {    
     carrito = [];
-    porciones = [];
+    porciones = [];    
     $("#carritoModal").html(carrito) 
-    $("#theCart").html(carrito.length);});
+    $("#theCart").html(carrito.length);
+    alert("Gracias por su compra")}); //VER TEMA ALERT
 }
 
-function eliminarProducto(producto) {
-    carrito = carrito.filter(element => element.pasta != producto)
+//ELIMINAR PRODUCTOS INDIVIDUALMENTE
+function eliminarProducto(id) {   
+    let price;
+    let name;
+    carrito.forEach((item) => {
+        if(item.id == id) {
+            price = item.precio;
+            name = item.pasta;
+        }
+    })
+    let totalElim = document.getElementById("total")
+    document.getElementById("total").innerHTML = totalElim - price  
+    
+    porciones = porciones.filter(element => element.id != id);
+    carrito = carrito.filter(element => element.id != id);
+    document.getElementById("theCart").innerHTML = carrito.length;
     mostrarProd();
 }
 
