@@ -1,3 +1,5 @@
+//No está siendo utilizada, usé el json
+
 class Product{
     constructor(pasta, precio, stock, img){
         this.pasta = pasta || undefined;
